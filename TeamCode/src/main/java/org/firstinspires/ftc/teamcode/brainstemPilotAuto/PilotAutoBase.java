@@ -2,15 +2,12 @@ package org.firstinspires.ftc.teamcode.brainstemPilotAuto;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
-
 import org.brainstemfirst.pilot.ftc.PilotOpMode;
+import org.brainstemfirst.pilot.ftc.PilotRegistry;
 import org.brainstemfirst.pilot.ftc.bezier.follower.BezierDrivePath;
-import org.brainstemfirst.pilot.ftc.bezier.follower.BezierFollowerConfig;
 import org.brainstemfirst.pilot.ftc.model.FieldConstants;
 import org.firstinspires.ftc.teamcode.BrainSTEMRobot;
-
 import com.acmerobotics.roadrunner.PoseVelocity2d;
-
 import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -25,35 +22,7 @@ public abstract class PilotAutoBase extends PilotOpMode {
 
     protected PilotAutoBase(String autoId) {
         super(autoId);
-        configureFollower();
-    }
-
-    /** Bézier follower gains. Read every loop — edit these values here. */
-    private void configureFollower() {
-        // Use velocity profile for smoother motion.
-        BezierFollowerConfig.useVelocityProfile = true;
-        BezierFollowerConfig.velKv = 0.014;
-        BezierFollowerConfig.velKs = 0.03;
-        BezierFollowerConfig.velKp = 0.05;
-
-        // Set cruise velocity/profile decel while tuning.
-        BezierFollowerConfig.overrideCruiseVel = false;
-        BezierFollowerConfig.cruiseVel = 30;
-        BezierFollowerConfig.overrideProfileDecel = false;
-        BezierFollowerConfig.profileDecel = 40;
-
-        // Cross-track error gains.
-        BezierFollowerConfig.crossTrackKp = 0.05;
-        BezierFollowerConfig.correctivePower = 0.7;
-
-        // Heading error gains.
-        BezierFollowerConfig.headingkP = 0.05;
-        BezierFollowerConfig.headingkF = 0.05;
-
-        // Speed error gains (ONLY used if useVelocityProfile is false)
-        BezierFollowerConfig.speedkP = 0.05;
-        BezierFollowerConfig.speedkF = 0.05;
-        BezierFollowerConfig.speedkD = 0.0;
+        BezierFollower.apply();
     }
 
     @Override
@@ -85,11 +54,19 @@ public abstract class PilotAutoBase extends PilotOpMode {
     @Override
     protected void registerCommands() {
         // Names must match the editor: PilotRegistry.addCommand("Subsystem", "Command", () -> action);
+        
+        PilotRegistry.addCommand("Subsystem", "Command", () ->
+            packet -> {
+            //ADD FUNCTION TO RUN HERE;
+            //RETURN A BOOLEAN HERE;
+            return false;
+        });
     }
 
     @Override
     protected boolean updateRobot(TelemetryPacket packet) {
         robot.update();
+        BezierFollower.apply();
 
         // Add telemetry for the BezierDrivePath status.
         BezierDrivePath.Status s = BezierDrivePath.status();
