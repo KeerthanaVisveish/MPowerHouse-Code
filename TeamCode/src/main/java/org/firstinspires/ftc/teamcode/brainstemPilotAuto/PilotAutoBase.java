@@ -6,7 +6,7 @@ import org.brainstemfirst.pilot.ftc.PilotOpMode;
 import org.brainstemfirst.pilot.ftc.PilotRegistry;
 import org.brainstemfirst.pilot.ftc.bezier.follower.BezierDrivePath;
 import org.brainstemfirst.pilot.ftc.model.FieldConstants;
-import org.firstinspires.ftc.teamcode.BrainSTEMRobot;
+import org.firstinspires.ftc.teamcode.Robot;
 import com.acmerobotics.roadrunner.PoseVelocity2d;
 import java.util.function.Consumer;
 import java.util.function.DoubleSupplier;
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  * Generated OpModes in {@code opmodeAutos/} extend this class.
  */
 public abstract class PilotAutoBase extends PilotOpMode {
-    protected BrainSTEMRobot robot;
+    protected Robot robot;
 
     protected PilotAutoBase(String autoId) {
         super(autoId);
@@ -27,7 +27,7 @@ public abstract class PilotAutoBase extends PilotOpMode {
 
     @Override
     protected void setupRobot(FieldConstants.Alliance alliance, Pose2d startPose) {
-        robot = new BrainSTEMRobot(hardwareMap, telemetry, startPose);
+        robot = new Robot(hardwareMap, telemetry, startPose);
         robot.drive.localizer.setPose(startPose);
     }
 

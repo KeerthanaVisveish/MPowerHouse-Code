@@ -10,12 +10,12 @@ import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.BrainSTEMRobot;
+import org.firstinspires.ftc.teamcode.Robot;
 
 @TeleOp(name="Teleop")
 public class Teleop extends LinearOpMode {
     private final Pose2d initialPose = new Pose2d(0, 0, 0);
-    private BrainSTEMRobot robot;
+    private Robot robot;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,7 +24,7 @@ public class Teleop extends LinearOpMode {
         Telemetry dashboardAndDs = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.setMsTransmissionInterval(20);
 
-        robot = new BrainSTEMRobot(hardwareMap, telemetry, initialPose);
+        robot = new Robot(hardwareMap, telemetry, initialPose);
 
         waitForStart();
 

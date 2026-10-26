@@ -5,11 +5,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.MecanumDrive;
 import com.acmerobotics.roadrunner.Pose2d;
 
-public class BrainSTEMRobot {
+public class Robot {
 
     public MecanumDrive drive;
 
-    public BrainSTEMRobot(HardwareMap hardwareMap, Telemetry telemetry, Pose2d startPose) {
+    public Robot(HardwareMap hardwareMap, Telemetry telemetry, Pose2d startPose) {
         drive = new MecanumDrive(hardwareMap, startPose);
     }
 
